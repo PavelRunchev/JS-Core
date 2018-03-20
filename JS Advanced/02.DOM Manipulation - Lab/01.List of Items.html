@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>List of Items</h1>
+<ul id="items"><li>First</li><li>Second</li></ul>
+<input type="text" id="newItemText" />
+<input type="button" value="Add" onclick="addItem()">
+<script>
+    function addItem() {
+        let newElement = document.getElementById('newItemText');
+        if(newElement.value.length === 0) return;
+
+        let li = document.createElement('li');
+        if(newElement.value !== ""){
+            li.textContent = newElement.value;
+            document.getElementById('items').appendChild(li);
+            newElement.value = '';
+        }
+    }
+</script>
+
+</body>
+</html>

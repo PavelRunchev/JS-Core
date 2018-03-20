@@ -1,0 +1,31 @@
+function solve(keyword, text){
+    "use strict";
+    let patternMessage = new RegExp(`(${keyword}(.+)${keyword})`, "g");
+    let patternNorth = /(north|east)\D*(\d{2})[^,]*(,)\D*(\d{6})/gi;
+    let matchedNorth = patternNorth.exec(text);
+    let north = "";
+    let east = "";
+    while(matchedNorth !== null){
+        if(matchedNorth[1].toLowerCase() === "north"){
+            north = matchedNorth[2] + "." + matchedNorth[4] + " N";
+        }else{
+            east = matchedNorth[2] + "." + matchedNorth[4] + " E";
+        }
+        matchedNorth = patternNorth.exec(text);
+    }
+
+    console.log(north);
+    console.log(east);
+    let matchedMessage = patternMessage.exec(text);
+    if(matchedMessage !== null){
+        console.log(`Message: ${matchedMessage[2]}`);
+    }
+}
+
+
+solve('<>',
+    `o u%&lu43t&^ftgv><nortH4276hrv756dcc,
+  jytbu64574655k <>ThE sanDwich is iN the refrIGErator<>yl i75evEAsTer23,lfwe 987324tlblu6b`);
+
+solve('4ds',
+`eaSt 19,432567noRt north east 53,123456north 43,3213454dsNot all those who wander are lost.4dsnorth 47,874532`);

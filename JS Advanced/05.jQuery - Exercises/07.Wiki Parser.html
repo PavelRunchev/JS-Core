@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Wiki Parser</title>
+    <script src="jquery-3.3.1.min.js"></script>
+</head>
+<body>
+<div>
+    <p id="wiki">
+        =Heading 1=
+        This is normal text with a [[hyperlink|piped hyperlink]].
+        this '''word''' should be '''bold'''.
+        ==Heading 2==
+        ''This is italics''. [[hyperlink]]
+        =Document title=
+        ==First segment==
+        '''bold 1''' word ''italics 1'' '''bold2'''
+        [[hyper first]] '''Bold three''' ''italics2'''
+        word [[hyper2]] [[hyperlink2|with Label]]
+        ==Second segment==
+        ===Third segment===
+        word '''word'''[[pipe|bomb]]
+
+    </p>
+</div>
+<script src="07.Wiki Parser.js"></script>
+<script>
+    window.onload = function(){
+        wikiParser('#wiki');
+    }
+</script>
+</body>
+</html>
