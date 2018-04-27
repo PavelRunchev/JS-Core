@@ -1,0 +1,26 @@
+[
+    {
+        "_id": "5ab40cca0eed9e7c1adda4ee",
+        "body": "Post 1",
+        "title": "New Post",
+        "_acl": {
+            "creator": "kid_SyCeit-9f"
+        },
+        "_kmd": {
+            "lmt": "2018-03-22T20:06:34.202Z",
+            "ect": "2018-03-22T20:06:34.202Z"
+        }
+    },
+    {
+        "_id": "5ab40ce039b20e629b23e1e2",
+        "body": "Post 2",
+        "title": "Old Post",
+        "_acl": {
+            "creator": "kid_SyCeit-9f"
+        },
+        "_kmd": {
+            "lmt": "2018-03-22T20:06:56.504Z",
+            "ect": "2018-03-22T20:06:56.504Z"
+        }
+    }
+]

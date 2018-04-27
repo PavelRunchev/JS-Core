@@ -1,0 +1,7 @@
+{
+  "name": "Messages",
+  "version": "",
+  "dependencies": {
+    "jquery": "^3.3.1"
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "name": "",
+  "version": "",
+  "dependencies": {
+    "handlebars": "^4.0.11"
+  }
+}

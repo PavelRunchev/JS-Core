@@ -1,0 +1,60 @@
+<section id="viewComments">
+    <div class="post">
+        <div class="col thumbnail">
+            <a href="{{post.url}}">
+                <img src="{{post.imageUrl}}">
+            </a>
+        </div>
+        <div class="post-content">
+            <div class="title">
+                <a href="{{post.url}}">
+                    {{post.title}}
+                </a>
+            </div>
+            <div class="details">
+                {{#if post.description}}
+                    <p>{{post.description}}</p>
+                {{else}}
+                    <p>No comments yet.</p>
+                {{/if}}
+
+                <div class="info">
+                    submitted {{post.date}} ago by {{post.author}}
+                </div>
+                <div class="controls">
+                    <ul>
+                        {{#if post.isAuthor}}
+                            <li class="action"><a class="editLink" href="#/editPost/{{post._id}}">edit</a></li>
+                            <li class="action"><a class="deleteLink" href="#/deletePost/{{post._id}}">delete</a></li>
+                        {{/if}}
+
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+
+    <div class="post post-content">
+        <form id="commentForm" action="#/createComment" method="post">
+            <input type="hidden" name="postId" value="{{post._id}}"/>
+            <label>Comment</label>
+            <textarea name="content" type="text"></textarea>
+            <input type="submit" value="Add Comment" id="btnPostComment">
+        </form>
+    </div>
+
+    {{#each comments}}
+        <article class="post post-content">
+            <p>{{content}}</p>
+            <div class="info">
+                submitted {{date}} ago by {{author}} |
+                {{#if commentAuthor}}
+                    <a href="#/deleteComment/{{_id}}/post/{{postId}}" class="deleteLink">delete</a>
+                {{/if}}
+            </div>
+        </article>
+    {{/each}}
+
+</section>

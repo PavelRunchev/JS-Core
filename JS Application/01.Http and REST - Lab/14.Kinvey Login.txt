@@ -1,0 +1,12 @@
+{
+    "_id": "5ab40c0d34fcd45ca0022e26",
+    "username": "guest",
+    "_kmd": {
+        "lmt": "2018-03-22T20:03:25.436Z",
+        "ect": "2018-03-22T20:03:25.436Z",
+        "authtoken": "896484ff-a0c4-492c-aff8-c4895fb62336.d1UvYQfmtfeXId5XWdlfEwvJDg1Jv3axlEYzdbrcPFw="
+    },
+    "_acl": {
+        "creator": "5ab40c0d34fcd45ca0022e26"
+    }
+}

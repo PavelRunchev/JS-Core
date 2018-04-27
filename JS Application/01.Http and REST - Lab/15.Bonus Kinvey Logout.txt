@@ -1,0 +1,11 @@
+After you click “Send” the response body should be empty. Doing it again should trigger an error.!!!!!
+
+
+{
+    "error": "InvalidCredentials",
+    
+"description": "Invalid credentials. Please retry your request with correct credentials",
+    
+"debug": "Authorization token invalid or expired"
+
+}

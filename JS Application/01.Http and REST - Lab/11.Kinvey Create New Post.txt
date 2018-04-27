@@ -1,0 +1,12 @@
+{
+    "title": "New Title",
+    "body": "New Post Body",
+    "_acl": {
+        "creator": "5ab40c0d34fcd45ca0022e26"
+    },
+    "_kmd": {
+        "lmt": "2018-03-22T21:07:28.199Z",
+        "ect": "2018-03-22T21:07:28.199Z"
+    },
+    "_id": "5ab41b10a54e0d15d1b94f98"
+}
