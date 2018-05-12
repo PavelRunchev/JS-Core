@@ -1,0 +1,40 @@
+
+    <div class="content">
+        <div class="chirper">
+
+            <h2 class="titlebar">{{username}}</h2>
+
+            <form id="formSubmitChirp" class="chirp-form" action="#/create" method="post">
+                <textarea name="text" class="chirp-input"></textarea>
+                <input class="chirp-submit" id="btnSubmitChirp" value="Chirp" type="submit">
+            </form>
+
+            <div id="userStats" class="user-details">
+                <span>{{stats.chirps}} chirps</span> | <span>{{stats.following}} following</span> | <span>{{stats.followers}} followers</span>
+            </div>
+        </div>
+        <div id="chirps" class="chirps"><h2 class="titlebar">Chirps</h2>
+
+            {{#each chirps}}
+
+                <article class="chirp">
+                    <div class="titlebar">
+                        <a href="#/feed/{{author}}" class="chirp-author">{{author}}</a>
+
+                        {{#if isAuthor}}
+                            <a href="#/delete/{{_id}}">delete</a>
+                        {{/if}}
+                        <span class="chirp-time">{{time}}</span>
+                    </div>
+                    <p>{{text}}</p>
+                </article>
+
+            {{else}}
+
+                <p>No chirps in database!</p>
+
+            {{/each}}
+
+        </div>
+    </div>
+
