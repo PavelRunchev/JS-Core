@@ -1,0 +1,25 @@
+<section id="viewMyFlights">
+    <h3>Your Flights</h3>
+
+    {{#each myFlights}}
+        <div class="flight-ticket">
+            <div class="flight-left">
+                <img src="{{image}}" alt="">
+            </div>
+            <div class="flight-right">
+                <div>
+                    <h3>{{destination}}</h3><span>{{departure}}</span>
+                </div>
+                <div>
+                    from {{origin}} <span>{{time}}</span>
+                </div>
+                <p>{{seats}} Seats ({{cost}}$ per seat) </p>
+                <a href="#/deleteFlight/{{_id}}" class="remove">REMOVE</a>
+                <a href="#/detailsFlight/{{_id}}" class="details">Details</a>
+            </div>
+        </div>
+    {{else}}
+        <p>Cannot Your Flights!</p>
+    {{/each}}
+
+</section>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Airline Administration</title>
+    <link rel="stylesheet" href="style/css/style.css">
+
+    <script src="./node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="./node_modules/handlebars/dist/handlebars.min.js"></script>
+    <script src="./node_modules/sammy/lib/sammy.js"></script>
+    <script src="./node_modules/sammy/lib/plugins/sammy.handlebars.js"></script>
+    <script src="./scripts/services/remote.js"></script>
+    <script src="./scripts/services/notify.js"></script>
+    <script src="./scripts/services/auth.js"></script>
+    <script src="./scripts/services/flightsServices.js"></script>
+    <script src="./scripts/app.js"></script>
+</head>
+<body>
+
+<div id="container">
+
+</div>
+
+ <div id="notifications">
+        <div id="loadingBox" class="notification" style="display: none">
+            <span>Loading …</span>
+        </div>
+        <div id="infoBox" class="notification" style="display: none">
+            <span>Info</span>
+        </div>
+        <div id="errorBox" class="notification" style="display: none">
+            <span>Error</span>
+        </div>
+ </div>
+
+</body>
+</html>
