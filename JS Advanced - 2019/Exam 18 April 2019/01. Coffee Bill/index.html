@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Coffee Bill</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+</head>
+<body>
+<h2>Coffee Bill</h2>
+<table id="bill">
+    <thead>
+    <tr>
+        <th>Product</th>
+        <th>Price</th>
+    </tr>
+    </thead>
+    <tbody id="product-list"></tbody>
+    <tfoot>
+    <tr>
+        <td>Total:</td>
+        <td>0.00</td>
+    </tr>
+    </tfoot>
+</table>
+<section id="add-product">
+    <h3>Add new product</h3>
+    <label>
+        <span>
+            Product:
+        </span>
+        <input type="text">
+    </label>
+    <label>
+        <span>
+            Price:
+        </span>
+        <input type="number">
+    </label>
+    <button onclick="addProduct()">Add</button>
+</section>
+
+<script>
+    function addProduct() {
+        const tBody = document.getElementById('product-list');
+        let totalPrice = document.querySelectorAll('#bill > tfoot > tr > td')[1];
+        let product = document.querySelector('#add-product > label > input[type="text"]');
+        let price = document.querySelector('#add-product > label > input[type="number"]');
+
+        if(product.value ===  '' || price.value === '') return;
+
+        let tr = document.createElement('tr');
+        let tdProduct = document.createElement('td');
+        tdProduct.textContent = product.value;
+        let tdPrice = document.createElement('td');
+        tdPrice.textContent = Number(price.value);
+        tr.appendChild(tdProduct);
+        tr.appendChild(tdPrice);
+        tBody.appendChild(tr);
+
+        totalPrice.textContent = Number(totalPrice.textContent) + Number(price.value);
+        
+        product.value = '';
+        price.value = '';
+    }
+</script>
+
+</body>
+</html>

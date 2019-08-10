@@ -1,0 +1,52 @@
+@import url('https://fonts.googleapis.com/css?family=Source+Code+Pro');
+
+body {
+    background: #EEEEEE;
+    font-family: 'Source Code Pro', monospace;
+}
+
+body>h1 {
+    text-align: center;
+}
+
+main {
+    background: white;
+    width: 50%;
+    margin: 0 auto;
+    padding: 2rem;
+    border-radius: 4px;
+    border: 2px solid black;
+}
+
+main input[type="text"] {
+    border: 1px solid black;
+    border-radius: 4px;
+    padding: 5px;
+    font-size: 19px;
+    outline: none;
+    cursor: pointer;
+}
+
+main input[type="button"] {
+    cursor: pointer;
+    border: 1px solid;
+    background: #DDDDDD;
+    font-size: 19px;
+    border-radius: 4px;
+    padding: 5px 14px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    outline: none;
+}
+
+main input[type="button"]:hover {
+    color: #DDDDDD;
+    background: #000000;
+    border-color: #DDDDDD;
+}
+
+main > ul > li {
+    color: black;
+    font-weight: bold;
+}

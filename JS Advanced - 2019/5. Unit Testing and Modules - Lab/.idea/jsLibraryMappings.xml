@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="JavaScriptLibraryMappings">
+    <file url="PROJECT" libraries="{@types/bootstrap, @types/chai, @types/css, @types/css-modules, @types/handlebars, @types/jquery, @types/jsdom, @types/mocha, @types/node, @types/sammy}" />
+    <includedPredefinedLibrary name="HTTP Response Handler" />
+  </component>
+</project>
