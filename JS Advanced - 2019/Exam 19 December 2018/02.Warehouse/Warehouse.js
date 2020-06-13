@@ -33,14 +33,13 @@ class Warehouse {
             output = this.availableProducts[type];
 
         } else {
-			throw `There is not enough space or the warehouse is already full`;
-		}
+            throw `There is not enough space or the warehouse is already full`;
+        }
 
         return output;
     }
 
     orderProducts(type) {
-
         let output;
         let sortedKeys = Object.keys(this.availableProducts[type])
             .sort((a, b) => this.availableProducts[type][b] - this.availableProducts[type][a]);
@@ -129,12 +128,3 @@ class Warehouse {
 }
 
 module.exports = Warehouse;
-
-
-let wh = new Warehouse(50);
-wh.addProduct('Food', 'apple', 10);
-wh.addProduct('Drink', 'milk', 5);
-wh.addProduct('Food', 'tomato', 8);
-console.log(wh.revision());
-
-

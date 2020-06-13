@@ -1,19 +1,60 @@
 function dart(){
-	let homePlayer = document.querySelector('#Home');
-	let awayPlayer = document.querySelector('#Away');
-	let turns = document.querySelectorAll('#turns p');
-	let playHome = true;
-	let playAway = false;
-	let homePoints = 0;
-	let awayPoints = 0;
+	let finishGame = false;
+	let homePlayer = document.querySelectorAll('#Home > p')[0];
+	let awayPlayer = document.querySelectorAll('#Away > p')[0];
 
-	let points = Array.prototype.slice
+	let homePlayerPoints = Number(homePlayer.textContent);
+	let awayPlayerPoints = Number(awayPlayer.textContent);
+	let firstPlayer = true;
+	let secondPlayer = false;
+
+	const handleScore = function (score) {
+		return (ev) => {
+			ev.stopPropagation();
+
+			if(finishGame) {
+ 				firstPlayer = false;
+				secondPlayer = false;
+				
+			}
+
+			if(firstPlayer) {
+				homePlayerPoints += score;
+				homePlayer.textContent = homePlayerPoints;
+				document.querySelectorAll('#turns > p')[0].textContent = 'Turn on Home';
+				document.querySelectorAll('#turns > p')[1].textContent = 'Next is Away';
+			}
+			
+			if(secondPlayer) {
+				awayPlayerPoints += score;
+				awayPlayer.textContent = awayPlayerPoints;
+				document.querySelectorAll('#turns > p')[0].textContent = 'Turn on Away';
+				document.querySelectorAll('#turns > p')[1].textContent = 'Next is Home';
+			}
+				
+			if(firstPlayer) {
+				firstPlayer = false;
+				secondPlayer = true;
+			}
+			else {
+				firstPlayer = true;
+				secondPlayer = false;
+			}
+
+			winnerOrLoser(homePlayerPoints, awayPlayerPoints);
+		}
+	}
+
+	//this is NodeList (query slelector All) convert to normal Array!
+	//now filter and map methods works!
+	let points = Array.prototype
+		.slice
 		.call(document.querySelectorAll('#scoreBoard table tr td'))
-		.map(a => a = a.textContent.split(' '))
-		.filter(a => a.length === 2)
-		.map(a => a = Number(a[0]));
+		.map(e => e = e.textContent.split(' '))
+		.filter(e => e.length > 1)
+		.map(e => Number(e[0]));
 	
-	if(playHome || playAway) {
+	if(points.length === 6) {
 		document.querySelector('#firstLayer').addEventListener('click', handleScore(points[0]));
 		document.querySelector('#secondLayer').addEventListener('click', handleScore(points[1]));
 		document.querySelector('#thirdLayer').addEventListener('click', handleScore(points[2]));
@@ -21,51 +62,140 @@ function dart(){
 		document.querySelector('#fifthLayer').addEventListener('click', handleScore(points[4]));
 		document.querySelector('#sixthLayer').addEventListener('click', handleScore(points[5]));
 	}
-
-	function handleScore(score) {
-		return (e) => {
-			e.stopPropagation();
-
-			if(playHome) {
-				turns[0].textContent = 'Turn on Away';
-				turns[1].textContent = 'Next is Home';
-				playHome = false;
-				playAway = true;
-				homePoints += score;
-				homePlayer.querySelectorAll('p')[0].textContent = homePoints;
-			} else if(playAway) {
-				turns[0].textContent = 'Turn on Home';
-				turns[1].textContent = 'Next is Away';
-				playHome = true;
-				playAway = false;
-				awayPoints += score;
-				awayPlayer.querySelectorAll('p')[0].textContent = awayPoints;
-			}
-
-			checkForWinner();
+	
+	function winnerOrLoser(firstPlayerPoints, secondPlayerPoints) {
+		if(firstPlayerPoints >= 100) {
+			document.querySelectorAll('#Home > p')[1].style.background = 'green';
+			document.querySelectorAll('#Away > p')[1].style.background = 'red';
+			finishGame = true;
+			return;
 		}
-	}
 
-	function checkForWinner() {
-		if(homePoints >= 100) {
-			homePlayer.querySelectorAll('p')[1].style.background = 'green';
-			awayPlayer.querySelectorAll('p')[1].style.background = 'red';
-			hasWinner();
-		} else if(awayPoints >= 100) {
-			homePlayer.querySelectorAll('p')[1].style.background = 'red';
-			awayPlayer.querySelectorAll('p')[1].style.background = 'green';
-			hasWinner();
+		if(Number(secondPlayerPoints) >= 100) {
+			document.querySelectorAll('#Home > p')[1].style.background = 'red';
+			document.querySelectorAll('#Away > p')[1].style.background = 'green';
+			finishGame = true;
+			return;
 		}
-	}
-
-	function hasWinner() {
-		document.querySelector('#firstLayer').removeEventListener('click', {capture: false});
-		document.querySelector('#secondLayer').removeEventListener('click', {capture: false});
-		document.querySelector('#thirdLayer').removeEventListener('click', {capture: false});
-		document.querySelector('#fourthLayer').removeEventListener('click', {capture: false});
-		document.querySelector('#fifthLayer').removeEventListener('click', {capture: false});
-		document.querySelector('#sixthLayer').removeEventListener('click', {capture: false});
-		playHome = false;
-		playAway = false;
 	}
 }
+
+
+// function dart() {
+// 	let $firstLayer = $('#firstLayer');
+// 	let $secondLayer = $('#secondLayer');
+// 	let $thirdLayer = $('#thirdLayer');
+// 	let $fourthLayer = $('#fourthLayer');
+// 	let $fifthLayer = $('#fifthLayer');
+// 	let $sixthLayer = $('#sixthLayer');
+
+// 	let $homePoints = $('#Home p:first');
+// 	let $awayPoints = $('#Away p:first');
+// 	let isHome = true;
+// 	let isWinner = false;
+
+// 	if (isWinner) {
+// 		$firstLayer.off('click');
+// 		$secondLayer.off('click');
+// 		$thirdLayer.off('click');
+// 		$fourthLayer.off('click');
+// 		$fifthLayer.off('click');
+// 		$sixthLayer.off('click');
+// 	}
+
+// 	let points = $('#scoreBoard tbody td')
+// 		.filter(x => x % 2 !== 0)
+// 		.text()
+// 		.split(' points')
+// 		.filter(x => x)
+// 		.map(x => Number(x));
+
+// 	$firstLayer.on('click', function (e) {
+// 		if (e.target === e.currentTarget) {
+// 			getPoints(points[0]);
+// 			hasWinner();
+// 		}
+// 	});
+
+// 	$secondLayer.on('click', function (e) {
+// 		if (e.target === e.currentTarget) {
+// 			getPoints(points[1]);
+// 			hasWinner();
+// 		}
+// 	});
+
+// 	$thirdLayer.on('click', function (e) {
+// 		if (e.target === e.currentTarget) {
+// 			getPoints(points[2]);
+// 			hasWinner();
+// 		}
+// 	});
+
+// 	$fourthLayer.on('click', function (e) {
+// 		if (e.target === e.currentTarget) {
+// 			getPoints(points[3]);
+// 			hasWinner();
+// 		}
+// 	});
+
+// 	$fifthLayer.on('click', function (e) {
+// 		if (e.target === e.currentTarget) {
+// 			getPoints(points[4]);
+// 			hasWinner();
+// 		}
+// 	});
+
+// 	$sixthLayer.on('click', function (e) {
+// 		if (e.target === e.currentTarget) {
+// 			getPoints(points[5]);
+// 			hasWinner();
+// 		}
+// 	});
+
+// 	function getPoints(point) {
+// 		if (isHome) {
+// 			let totalPoints = Number($homePoints.text());
+// 			totalPoints += point;
+// 			$homePoints.text(totalPoints);
+// 			isHome = false;
+// 			changeTurn();
+// 			if (totalPoints >= 100) {
+// 				isWinner = true;
+// 				$('#Home p:last').css('background-color', 'green');
+// 				$('#Away p:last').css('background-color', 'red');
+// 			}
+// 		} else {
+// 			let totalPoints = Number($awayPoints.text());
+// 			totalPoints += point;
+// 			$awayPoints.text(totalPoints);
+// 			isHome = true;
+// 			changeTurn();
+// 			if (totalPoints >= 100) {
+// 				isWinner = true;
+// 				$('#Home p:last').css('background-color', 'red');
+// 				$('#Away p:last').css('background-color', 'green');
+// 			}
+// 		}
+// 	}
+
+// 	function changeTurn() {
+// 		if (isHome) {
+// 			$('#turns p:first').text('Turn on Home');
+// 			$('#turns p:last').text('Next is Away');
+// 		} else {
+// 			$('#turns p:first').text('Turn on Away');
+// 			$('#turns p:last').text('Next is Home');
+// 		}
+// 	}
+
+// 	function hasWinner(){
+// 		if (isWinner) {
+// 			$firstLayer.off('click');
+// 			$secondLayer.off('click');
+// 			$thirdLayer.off('click');
+// 			$fourthLayer.off('click');
+// 			$fifthLayer.off('click');
+// 			$sixthLayer.off('click');
+// 		}
+// 	}
+// }
