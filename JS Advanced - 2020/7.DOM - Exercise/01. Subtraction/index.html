@@ -1,0 +1,33 @@
+<!--Problems for in-class lab for the “JavaScript Advanced” course @ SoftUni.
+Submit your solutions in the SoftUni judge system at https://judge.softuni.bg/Contests/1550/Exercise-DOM-Manipulations -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Subtraction</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+    <div id="wrapper">
+        <input type="text" id="firstNumber" value="13.33" disabled>
+        <input type="text" id="secondNumber" value="22.18" disabled>
+
+        <div id="result"></div>
+    </div>
+    <script>
+        window.onload = function () {
+            subtract();
+        }
+
+        function subtract() {
+            let [num1, num2] = document.querySelectorAll('#wrapper input');
+            document.querySelector('#result').textContent = Number(num1.value) - Number(num2.value);
+        }
+    </script>
+</body>
+
+</html>
