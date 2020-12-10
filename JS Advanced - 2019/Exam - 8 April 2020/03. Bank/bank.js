@@ -4,74 +4,62 @@ class Bank {
 		this.allCustomers = [];
 	}
 
-	//No Getter - test 2!!!
+	//check for setter - test 2!!!
 	set bankName(value) {
 		this._bankName = value;
 	}
 
 	newCustomer(customer) {
-		const existCustomur = this.allCustomers.find(c => c.personalId === customer.personalId);
-		if(existCustomur)
+		if(this.allCustomers.some(c => c.firstName === customer.firstName 
+			&& c.lastName === customer.lastName 
+			&& c.personalId === customer.personalId))
 			throw new Error(`${customer.firstName} ${customer.lastName} is already our customer!`);
 
+		customer.transactions = [];
 		this.allCustomers.push(customer);
 		return customer;
 	}
 
 	depositMoney(personalId, amount) {
-		let existPersonalId = this.allCustomers.find(c => c.personalId === personalId);
-		if(!existPersonalId)
-			throw new Error('We have no customer with this ID!');
+		const customerIndex = this.allCustomers.findIndex(c => c.personalId === personalId);
+		if(customerIndex === -1) throw new Error('We have no customer with this ID!');
 
-		if(!existPersonalId.hasOwnProperty('totalMoney'))
-			existPersonalId['totalMoney'] = 0;
+		let customer = this.allCustomers[customerIndex];
+		if(!customer.hasOwnProperty('totalMoney')) customer.totalMoney = 0;
 
-		if(!existPersonalId.hasOwnProperty('transaction'))
-			existPersonalId['transaction'] = [];
-
-
-		existPersonalId['totalMoney'] += amount;
-		existPersonalId.transaction
-			.push(`${existPersonalId.firstName} ${existPersonalId.lastName} made deposit of ${amount}$!`);
-		return `${existPersonalId['totalMoney']}$`;
+		customer.totalMoney += amount;
+		customer.transactions.push(`${customer.firstName} ${customer.lastName} made deposit of ${amount}$!`);
+		return `${this.allCustomers[customerIndex].totalMoney}$`;
 	}
 
 	withdrawMoney(personalId, amount) {
-		let existPersonalId = this.allCustomers.find(c => c.personalId === personalId);
-		if(!existPersonalId)
+		const customerIndex = this.allCustomers.findIndex(c => c.personalId === personalId);
+		if(customerIndex === -1)
 			throw new Error('We have no customer with this ID!');
 
-		if(!existPersonalId.hasOwnProperty('totalMoney'))
-			existPersonalId['totalMoney'] = 0;
+		let customer = this.allCustomers[customerIndex];
+		if(customer.totalMoney < amount)
+			throw new Error(`${customer.firstName} ${customer.lastName} does not have enough money to withdraw that amount!`);
 
-		if(!existPersonalId.hasOwnProperty('transaction'))
-			existPersonalId['transaction'] = [];
-
-		if(existPersonalId['totalMoney'] < amount) 
-			throw new Error(`${existPersonalId.firstName} ${existPersonalId.lastName} does not have enough money to withdraw that amount!`);
-
-
-		existPersonalId['totalMoney'] -= amount;
-		existPersonalId.transaction.push(`${existPersonalId.firstName} ${existPersonalId.lastName} withdrew ${amount}$!`);
-		return `${existPersonalId['totalMoney']}$`;
+		customer.totalMoney -= amount;
+		customer.transactions.push(`${customer.firstName} ${customer.lastName} withdrew ${amount}$!`);
+		return `${customer.totalMoney}$`;
 	}
 
 	customerInfo(personalId) {
-		let existPersonalId = this.allCustomers.find(c => c.personalId === personalId);
-		if(!existPersonalId)
-			throw new Error('We have no customer with this ID!');
+		const customer = this.allCustomers.find(c => c.personalId === personalId);
+		if(customer === undefined) throw new Error('We have no customer with this ID!');
 
-		const transaction = existPersonalId.transaction
+		const transactions = customer.transactions
 			.map((t, i) => t = `${i + 1}. ` + t)
 			.reverse()
 			.join('\n');
+		const existTransactions = customer.transactions.length > 0 ? '\nTransactions:\n' + transactions : '';
 
 		return `Bank name: ${this._bankName}\n` +
-			`Customer name: ${existPersonalId.firstName} ${existPersonalId.lastName}\n` + 
-			`Customer ID: ${existPersonalId.personalId}\n` +
-			`Total Money: ${existPersonalId.totalMoney}$\n` +
-			`Transactions:\n` + 
-			`${transaction}`;
+			`Customer name: ${customer.firstName} ${customer.lastName}\n` +
+			`Customer ID: ${customer.personalId}\n` +
+			`Total Money: ${customer.totalMoney}$` + existTransactions;
 	}
 }
 
@@ -79,14 +67,8 @@ let bank = new Bank('SoftUni Bank');
 
 console.log(bank.newCustomer({firstName: 'Svetlin', lastName: 'Nakov', personalId: 6233267}));
 console.log(bank.newCustomer({firstName: 'Mihaela', lastName: 'Mileva', personalId: 4151596}));
-
 bank.depositMoney(6233267, 250);
-console.log(bank.depositMoney(6233267, 250));
+bank.depositMoney(6233267, 250);
 bank.depositMoney(4151596,555);
-
-console.log(bank.withdrawMoney(6233267, 125));
-
+bank.withdrawMoney(6233267, 125);
 console.log(bank.customerInfo(6233267));
-
-
-
